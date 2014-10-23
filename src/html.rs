@@ -75,7 +75,7 @@ impl Parser {
     /// Parse a tag or attribute name.
     fn parse_tag_name(&mut self) -> String {
         self.consume_while(|c| match c {
-            'a'..'z' | 'A'..'Z' | '0'..'9' => true,
+            'a'...'z' | 'A'...'Z' | '0'...'9' => true,
             _ => false
         })
     }
@@ -125,7 +125,7 @@ impl Parser {
     fn consume_while(&mut self, test: |char| -> bool) -> String {
         let mut result = String::new();
         while !self.eof() && test(self.next_char()) {
-            result.push_char(self.consume_char());
+            result.push(self.consume_char());
         }
         return result;
     }

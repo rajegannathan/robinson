@@ -182,7 +182,7 @@ impl Parser {
 
     fn parse_value(&mut self) -> Value {
         match self.next_char() {
-            '0'..'9' => self.parse_length(),
+            '0'...'9' => self.parse_length(),
             '#' => self.parse_color(),
             _ => Keyword(self.parse_identifier())
         }
@@ -194,7 +194,7 @@ impl Parser {
 
     fn parse_float(&mut self) -> f32 {
         let s = self.consume_while(|c| match c {
-            '0'..'9' | '.' => true,
+            '0'...'9' | '.' => true,
             _ => false
         });
         let f: Option<f32> = FromStr::from_str(s.as_slice());
@@ -234,7 +234,7 @@ impl Parser {
     fn consume_while(&mut self, test: |char| -> bool) -> String {
         let mut result = String::new();
         while !self.eof() && test(self.next_char()) {
-            result.push_char(self.consume_char());
+            result.push(self.consume_char());
         }
         return result;
     }
@@ -259,7 +259,7 @@ impl Parser {
 
 fn valid_identifier_char(c: char) -> bool {
     match c {
-        'a'..'z' | 'A'..'Z' | '0'..'9' | '-' | '_' => true, // TODO: Include U+00A0 and higher.
+        'a'...'z' | 'A'...'Z' | '0'...'9' | '-' | '_' => true, // TODO: Include U+00A0 and higher.
         _ => false,
     }
 }
